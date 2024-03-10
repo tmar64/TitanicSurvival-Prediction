@@ -167,9 +167,9 @@ Extracting user input to HTML file
 if __name__ == "__main__":
     app.run(debug=True)
 ```
-### Lets see it run!\
-<img src="webapp.png" width = "500" height = "400">
-***
+### Lets see it run!
+<img src="webapp.png" width = "600" height = "400">
 Adding my own info as input...
-<img src="webapp_test.png" width = "500" height = "400">
+
+<img src="webapp_test.png" width = "550" height = "400">
 I survived!
