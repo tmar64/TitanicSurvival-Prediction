@@ -1,0 +1,35 @@
+```ruby
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titanic Prediction</title>
+</head>
+
+<body>
+    <h1>Titanic Prediction</h1>
+    <form action="/predict" method="post">
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required min="0"><br><br>
+
+        <label for="sex">Gender:</label>
+        <select id="sex" name="sex" required>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+        </select><br><br>
+
+        <label for="siblings">Number of Siblings on Board:</label>
+        <input type="number" id="siblings" name="siblings" required min="0"><br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+
+<div id="prediction_text">{{ prediction_text }}</div>
+
+</body>
+
+</html>
+```
