@@ -168,8 +168,8 @@ if __name__ == "__main__":
     app.run(debug=True)
 ```
 ### Lets see it run!
-<img src="webapp.png" width = "600" height = "400">
+<img src="webapp.png" width = "600" height = "420">
 Adding my own info as input...
 
-<img src="webapp_test.png" width = "550" height = "400">
+<img src="webapp_test.png" width = "550" height = "450">
 I survived!
