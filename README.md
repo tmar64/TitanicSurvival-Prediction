@@ -45,13 +45,13 @@ Lets visualize some of this data...
 
 Distributions of passengers on the Titanic:
 
-<img src="embarked_distri.png" width = "650" height = "500">
-<img src="gender_distri.png" width = "650" height = "500">
+<img src="images/embarked_distri.png" width = "650" height = "500">
+<img src="images/gender_distri.png" width = "650" height = "500">
 
 ***
 Viewing correlation of all the columns, so we know which are important:
 
-<img src="corr_matrix.png" width = "650" height = "500">
+<img src="images/corr_matrix.png" width = "650" height = "500">
 
 *** 
 ### Data Cleaning
@@ -65,7 +65,7 @@ def missing_value(df):
     return missing
 
 ```
-<img src="missing_values.png" width = "350" height = "90">
+<img src="images/missing_values.png" width = "350" height = "90">
 
 
 Handling the missing values:
@@ -104,7 +104,7 @@ X_test = pd.DataFrame(X_test, columns=X.columns)
 random_forest = RandomForestClassifier(n_estimators=100)
 random_forest.fit(X_train, y_train)
 ```
-<img src="model_accuracy.png" width = "300" height = "30">
+<img src="images/model_accuracy.png" width = "300" height = "30">
 
 ```
 Pickling Model 
@@ -131,7 +131,7 @@ def home():
     return render_template('index.html')
 
 
-# Prediction route
+# Flask App/Prediction Routes
 @app.route('/predict', methods=['POST'])
 def predict():
     # Extract input features from the request form
@@ -167,9 +167,10 @@ Extracting user input to HTML file
 if __name__ == "__main__":
     app.run(debug=True)
 ```
-### Lets see it run!
-<img src="webapp.png" width = "600" height = "420">
-Adding my own info as input...
+### Testing!
+<img src="images/webapp.png" width = "600" height = "420">
 
-<img src="webapp_test.png" width = "550" height = "450">
+### Adding my own info as input...
+
+<img src="images/webapp_test.png" width = "550" height = "450">
 I survived!
