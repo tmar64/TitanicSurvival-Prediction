@@ -6,7 +6,11 @@ import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
+import pprint
 
+# global variables for age ranges
+dict_keys = ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34',
+             '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75-80']
 
 # read in the data file (csv)
 def read_file():
@@ -33,11 +37,10 @@ def drop_column(df):
     return df
 
 
-# brute force build population pyramid
-def population_pyramid(df):
-
+# returns frequency of males in specific age ranges
+def age_frequency_male(df):
     # create df of m/f and age
-    sex_age = df[['Sex','Age']]
+    sex_age = df[['Sex', 'Age']]
 
     # creates df of m and age
     male_age = sex_age[sex_age.Sex == 'male']
@@ -48,22 +51,122 @@ def population_pyramid(df):
     # create series of age and their frequency
     male_age_frequency = male_age['Age'].value_counts(sort=False)
 
-    age_freq = 0
+    # create dict of age ranges set to 0
+    male_dict = dict.fromkeys(dict_keys, 0)
+
+    # iterate through panda series, if age is in specified range, increment in dict
     for age, freq in male_age_frequency.items():
-        if age <= 5:
-            age_freq += freq
+        if age <= 4:
+            male_dict['0-4'] += freq
+        elif age <= 9:
+            male_dict['5-9'] += freq
+        elif age <= 14:
+            male_dict['10-14'] += freq
+        elif age <= 19:
+            male_dict['15-19'] += freq
+        elif age <= 24:
+            male_dict['20-24'] += freq
+        elif age <= 29:
+            male_dict['25-29'] += freq
+        elif age <= 34:
+            male_dict['30-34'] += freq
+        elif age <= 39:
+            male_dict['35-39'] += freq
+        elif age <= 44:
+            male_dict['40-44'] += freq
+        elif age <= 49:
+            male_dict['45-49'] += freq
+        elif age <= 54:
+            male_dict['50-54'] += freq
+        elif age <= 59:
+            male_dict['55-59'] += freq
+        elif age <= 64:
+            male_dict['60-64'] += freq
+        elif age <= 69:
+            male_dict['65-69'] += freq
+        elif age <= 74:
+            male_dict['70-74'] += freq
+        elif age <= 80:
+            male_dict['75-80'] += freq
         else:
             break
 
-    return age_freq
+    # return dictionary in clean format using pprint
+    return pprint.pprint(male_dict)
+
+# returns frequency of females in specific age ranges
+def age_frequency_female(df):
+    # create df of m/f and age
+    sex_age = df[['Sex', 'Age']]
+
+    # creates df of f and age
+    female_age = sex_age[sex_age.Sex == 'female']
+
+    # sort df in ascending order, by age
+    female_age = female_age.sort_values(by=['Age'], ascending=True)
+
+    # create series of age and their frequency
+    female_age_frequency = female_age['Age'].value_counts(sort=False)
+
+    # create dict of age ranges set to 0
+    female_dict = dict.fromkeys(dict_keys, 0)
+
+    # iterate through panda series, if age is in specified range, increment in dict
+    for age, freq in female_age_frequency.items():
+        if age <= 4:
+            female_dict['0-4'] += freq
+        elif age <= 9:
+            female_dict['5-9'] += freq
+        elif age <= 14:
+            female_dict['10-14'] += freq
+        elif age <= 19:
+            female_dict['15-19'] += freq
+        elif age <= 24:
+            female_dict['20-24'] += freq
+        elif age <= 29:
+            female_dict['25-29'] += freq
+        elif age <= 34:
+            female_dict['30-34'] += freq
+        elif age <= 39:
+            female_dict['35-39'] += freq
+        elif age <= 44:
+            female_dict['40-44'] += freq
+        elif age <= 49:
+            female_dict['45-49'] += freq
+        elif age <= 54:
+            female_dict['50-54'] += freq
+        elif age <= 59:
+            female_dict['55-59'] += freq
+        elif age <= 64:
+            female_dict['60-64'] += freq
+        elif age <= 69:
+            female_dict['65-69'] += freq
+        elif age <= 74:
+            female_dict['70-74'] += freq
+        elif age <= 80:
+            female_dict['75-80'] += freq
+        else:
+            break
+
+    # return dictionary in clean format using pprint
+    return pprint.pprint(female_dict)
 
 
 if __name__ == "__main__":
+
+    # load and create df
     datafile = read_file()
+
+    # fill missing age with ffill method
     datafile = fill_age(datafile)
 
-    graph = population_pyramid(datafile)
-    print(graph)
+    # print age distribution of males and female
+    print(age_frequency_male(datafile), '\n')
+    print(age_frequency_female(datafile))
+
+
+
+
 """
 # distribution of location embarked from
 ax = sns.countplot(data=df, x="Embarked")
@@ -164,5 +267,3 @@ def predict():
     return render_template('index.html', prediction_text=result_text)
 
 """
-
-
