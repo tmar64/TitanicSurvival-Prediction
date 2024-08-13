@@ -157,19 +157,28 @@ def age_frequency_female(df):
 # return population pyramid
 def population_pyramid():
 
+    # pandas df created using the values from the age_frequency functions
     pop_pyramid = pd.DataFrame(
         {'Age': ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49',
                  '50-54', '55-59', '60-64', '65-69', '70-74', '75-80'],
          'Male': [-36, -12, -10, -65, -90, -92, -75, -62, -35, -34, -28, -15, -11, -5, -6, -1],
          'Female': [20, 14, 8, 46, 48, 36, 37, 37, 26, 16, 13, 6, 6, 1, 0, 0]})
 
+    # set age range for the Y axis
     age_ranges = ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49',
                   '50-54', '55-59', '60-64', '65-69', '70-74', '75-80']
 
+    # create the population pyramid
     bar_plot = sns.barplot(x='Male', y='Age', data=pop_pyramid, order=age_ranges)
-    bar_plot = sns.barplot(x='Female', y='Age', data=pop_pyramid, order=age_ranges)
+    bar_plot = sns.barplot(x='Female', y='Age', color='Pink', data=pop_pyramid, order=age_ranges)
     bar_plot.set(xlabel='Population', ylabel='Age', title='Age/Gender Distribution on the Titanic')
+
+    bar_plot.set_xticklabels([int(max(x, -x)) for x in bar_plot.get_xticks()])
+
+    bar_plot.invert_yaxis()
+
     return plt.show()
+
 
 if __name__ == "__main__":
     # load and create df
@@ -184,6 +193,7 @@ if __name__ == "__main__":
     print("Female Age Distribution")
     print("female", age_frequency_female(datafile))
 
+    # call population pyramid
     population_pyramid()
 
 
