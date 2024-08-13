@@ -12,6 +12,7 @@ import pprint
 dict_keys = ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34',
              '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75-80']
 
+
 # read in the data file (csv)
 def read_file():
     file_path = "/Users/tanaymarathe/Desktop/titanic/train.csv"
@@ -94,6 +95,7 @@ def age_frequency_male(df):
     # return dictionary in clean format using pprint
     return pprint.pprint(male_dict)
 
+
 # returns frequency of females in specific age ranges
 def age_frequency_female(df):
     # create df of m/f and age
@@ -152,8 +154,24 @@ def age_frequency_female(df):
     return pprint.pprint(female_dict)
 
 
-if __name__ == "__main__":
+# return population pyramid
+def population_pyramid():
 
+    pop_pyramid = pd.DataFrame(
+        {'Age': ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49',
+                 '50-54', '55-59', '60-64', '65-69', '70-74', '75-80'],
+         'Male': [-36, -12, -10, -65, -90, -92, -75, -62, -35, -34, -28, -15, -11, -5, -6, -1],
+         'Female': [20, 14, 8, 46, 48, 36, 37, 37, 26, 16, 13, 6, 6, 1, 0, 0]})
+
+    age_ranges = ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49',
+                  '50-54', '55-59', '60-64', '65-69', '70-74', '75-80']
+
+    bar_plot = sns.barplot(x='Male', y='Age', data=pop_pyramid, order=age_ranges)
+    bar_plot = sns.barplot(x='Female', y='Age', data=pop_pyramid, order=age_ranges)
+    bar_plot.set(xlabel='Population', ylabel='Age', title='Age/Gender Distribution on the Titanic')
+    return plt.show()
+
+if __name__ == "__main__":
     # load and create df
     datafile = read_file()
 
@@ -161,10 +179,12 @@ if __name__ == "__main__":
     datafile = fill_age(datafile)
 
     # print age distribution of males and female
+    print("Male Age Distribution")
     print(age_frequency_male(datafile), '\n')
-    print(age_frequency_female(datafile))
+    print("Female Age Distribution")
+    print("female", age_frequency_female(datafile))
 
-
+    population_pyramid()
 
 
 """
