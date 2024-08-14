@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 import pprint
+import numpy
 
 # global variables for age ranges
 dict_keys = ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34',
@@ -156,7 +157,6 @@ def age_frequency_female(df):
 
 # return population pyramid
 def population_pyramid():
-
     # pandas df created using the values from the age_frequency functions
     pop_pyramid = pd.DataFrame(
         {'Age': ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49',
@@ -180,6 +180,20 @@ def population_pyramid():
     return plt.show()
 
 
+# creates a correlation matrix between the specified variables
+def cor_matrix1(df):
+    # converts sex column to numerical form
+    df['Sex'] = df['Sex'].astype('category').cat.codes
+    corr_data = df[['Survived', 'Sex', 'Age', 'SibSp', 'Pclass']]
+    corr_data = corr_data.corr()
+
+    # creates matrix
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(corr_data, annot=True, cmap='viridis', fmt=".2f", linewidths=0.5)
+    plt.title('Correlation Matrix')
+    return plt.show()
+
+
 if __name__ == "__main__":
     # load and create df
     datafile = read_file()
@@ -194,8 +208,9 @@ if __name__ == "__main__":
     print("female", age_frequency_female(datafile))
 
     # call population pyramid
-    population_pyramid()
-
+    # population_pyramid()
+    # call correlation matrix
+    cor_matrix1(datafile)
 
 """
 # distribution of location embarked from
