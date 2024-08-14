@@ -180,6 +180,13 @@ def population_pyramid():
     return plt.show()
 
 
+# returns fatality rate by gender
+def m_f_survival(df):
+    survival_sex = df[['Survived', 'Sex']]
+    survival_freq = survival_sex.value_counts(['Sex', 'Survived']).reset_index()
+    return survival_freq
+
+
 # creates a correlation matrix between the specified variables
 def cor_matrix1(df):
     # converts sex column to numerical form
@@ -194,6 +201,13 @@ def cor_matrix1(df):
     return plt.show()
 
 
+# creates bar plot of fatality rate by gender
+def bar_plot1(df):
+
+    sns.barplot(data=df)
+    plt.title("Fatality Rate by Gender")
+    return plt.show()
+
 if __name__ == "__main__":
     # load and create df
     datafile = read_file()
@@ -205,12 +219,18 @@ if __name__ == "__main__":
     print("Male Age Distribution")
     print(age_frequency_male(datafile), '\n')
     print("Female Age Distribution")
-    print("female", age_frequency_female(datafile))
+    print("female", age_frequency_female(datafile), '\n')
 
     # call population pyramid
-    # population_pyramid()
+    #population_pyramid()
     # call correlation matrix
-    cor_matrix1(datafile)
+    #cor_matrix1(datafile)
+
+    # print fatality rate by gender (0=died,1=survived)
+    print(m_f_survival(datafile))
+    f_rate = m_f_survival(datafile)
+
+    bar_plot1(f_rate)
 
 """
 # distribution of location embarked from
